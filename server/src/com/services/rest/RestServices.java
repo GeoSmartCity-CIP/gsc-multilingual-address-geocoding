@@ -6,6 +6,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 
@@ -24,11 +25,11 @@ public class RestServices  extends Application{
 		return "Hello World";		
 	}
 	
-	//http://localhost:8080/Geosmartcity/resources/MyRestService/getturkuaddress/address=Helsingin%20valtatie
+	//http://localhost:8080/Geosmartcity/resources/MyRestService/getturkuaddress?address=Helsingin%20valtatie
 	@GET
-	@Path("/getturkuaddress/address={f}")
+	@Path("/getturkuaddress")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String GetDatabaseVersion(@PathParam("f") String f )
+	public String GetAddress(@QueryParam("address") String f )
 	{
 		
 		Gson gson = new GsonBuilder().disableHtmlEscaping().create();
@@ -37,11 +38,11 @@ public class RestServices  extends Application{
 		return json; 
 	}
 	
-	//http://localhost:8080/Geosmartcity/resources/MyRestService/getturkuaddress/address=Helsingin%20valtatie
+	//http://localhost:8080/Geosmartcity/resources/MyRestService/getturkuaddress?address=Helsingin%20valtatie
 	@POST
-	@Path("/postturkuaddress/address={f}")
+	@Path("/postturkuaddress/address?={f}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String PostDatabaseVersion(@PathParam("f") String f )
+	public String PostAddress(@QueryParam("address") String f)
 	{
 		Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 		String json = gson.toJson(Geocoder.GetAddress(f));
