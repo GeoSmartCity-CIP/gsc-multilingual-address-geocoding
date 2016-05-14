@@ -29,7 +29,7 @@ public class Geocoder {
 	    			st = con.createStatement();
 	            
 	            
-	            String query1 = "SELECT id, ts_headline(name, query) as address , ST_AsGeoJSON(geom) as geometry , rank FROM (SELECT id, name, geom , query, ts_rank_cd(ts, query, 32 /* rank/(rank+1) */ ) AS rank FROM geonames, to_tsquery(\'simple\', regexp_replace(trim(\'";
+	             String query1 = "SELECT id, ts_headline(name, query) as address , ST_AsGeoJSON(geom) as geometry , rank FROM (SELECT gid AS id, name_fi AS name, geom , query, ts_rank_cd(ts, query, 32 /* rank/(rank+1) */ ) AS rank FROM multilingual_roads, to_tsquery(\'simple\', regexp_replace(trim(\'";
 	            String query2 = "\'), E'\\\\s+\', \'&\', \'g\')) query WHERE query @@ ts ORDER BY rank DESC LIMIT 10) AS foo;";
 	            //String query = "SELECT id, name as address, ST_AsGeoJSON(geom) as geometry FROM geonames limit 10;";
 	            rs = st.executeQuery(query1 + adress + query2);
