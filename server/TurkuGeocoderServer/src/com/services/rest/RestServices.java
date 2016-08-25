@@ -28,7 +28,7 @@ public class RestServices  extends Application{
 		return "Hello World";		
 	}
 	
-	//http://localhost:8080/TurkuGeocoderServer/geo/RestService/getaddress?address=Helsingin%20valtatie‚
+	//http://localhost:8080/TurkuGeocoderServer/geo/RestService/getaddress?address=Helsingin%20valtatieâ€š
 	@GET
 	@Path("/getaddress")
 	@Produces(MediaType.APPLICATION_JSON  + ";charset=utf-8")
@@ -40,7 +40,7 @@ public class RestServices  extends Application{
 		return json; 
 	}
 	
-	//http://localhost:8080/TurkuGeocoderServer/geo/RestService/postaddress?address=Helsingin%20valtatie‚
+	//http://localhost:8080/TurkuGeocoderServer/geo/RestService/postaddress?address=Helsingin%20valtatieâ€š
 	@POST
 	@Path("/postaddress/address?={f}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
@@ -50,4 +50,28 @@ public class RestServices  extends Application{
 		String json = gson.toJson(Geocoder.GetAddress(f));
 		return json; 
 	}
+	
+	//http://localhost:8080/TurkuGeocoderServer/geo/RestService/getcoordinates?lng=2.83386&lat=42.00351&srs=4326
+	@GET
+	@Path("/getcoordinates")
+	@Produces(MediaType.APPLICATION_JSON  + ";charset=utf-8")
+	public String GetAddress(@QueryParam("lat") double lat, @QueryParam("lng") double lng, @QueryParam("srs") int srs )
+	{
+		Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+		String json = gson.toJson(Geocoder.GetAddress(lat, lng));
+		System.out.println(json);
+		return json; 
+	}
+	
+	//http://localhost:8080/TurkuGeocoderServer/geo/RestService/postaddress?lng=2.83386&lat=42.00351&srs=4326â€š
+	@POST
+	@Path("/postcoordinates?lng={lng}&lat={lat}&srs={srs}")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public String PostAddress(@QueryParam("lat") double lat, @QueryParam("lng") double lng, @QueryParam("srs") int srs )
+	{
+		Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+		String json = gson.toJson(Geocoder.GetAddress(lat, lng));
+		return json; 
+	}
+	
 }
